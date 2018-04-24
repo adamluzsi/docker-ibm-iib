@@ -12,7 +12,6 @@ RUN echo "IBM IIB target version: ${PRODUCT_VERSION}"
 RUN mkdir /opt/ibm
 
 ADD "http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/integration/${PRODUCT_VERSION}-IIB-LINUX64-DEVELOPER.tar.gz" /tmp/iib.tar.gz
-# COPY iib.tar.gz /tmp/iib.tar.gz
 RUN tar --extract --gunzip --file /tmp/iib.tar.gz --directory /opt/ibm
 RUN rm /tmp/iib.tar.gz
 
