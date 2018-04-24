@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec.sh ibm/iib "source /usr/local/bin/iib_env.sh && /opt/ibm/iib/iib toolkit"
