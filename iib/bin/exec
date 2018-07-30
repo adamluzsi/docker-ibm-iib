@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+IMG_ID=$(docker images | grep iib | grep -F -e'latest' | perl -n -al -e'print $F[2];')
+CNT_ID=$(docker ps | grep -F -e"$IMG_ID" | perl -n -al -e'print $F[0];' | head -n 1)
+
+if [[ -z "$CNT_ID" ]]; then
+	echo "no iib container tunning"
+	exit 1
+fi
+
+if [[ -z "$1" ]]; then
+	CMD="/usr/bin/env bash"
+else
+	CMD="$1"
+fi
+
+docker exec \
+	--tty \
+	--interactive \
+	--env LICENSE \
+	--env DISPLAY="unix$DISPLAY" \
+	"$CNT_ID" $CMD

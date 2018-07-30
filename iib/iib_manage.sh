@@ -33,16 +33,11 @@ start() {
 		echo "Creating node $NODE_NAME"
 		mqsicreatebroker $NODE_NAME
 		echo "----------------------------------------"
-		echo "----------------------------------------"
-		echo "Starting syslog"
-		sudo /usr/sbin/rsyslogd
 		echo "Starting node $NODE_NAME"
 		mqsistart $NODE_NAME
 		echo "----------------------------------------"
-		echo "----------------------------------------"
 		echo "Creating integration server $SERVER_NAME"
 		mqsicreateexecutiongroup $NODE_NAME -e $SERVER_NAME -w 120
-		echo "----------------------------------------"
 		echo "----------------------------------------"
 		shopt -s nullglob
 		for f in /tmp/BARs/*; do
@@ -50,14 +45,10 @@ start() {
 			mqsideploy $NODE_NAME -e $SERVER_NAME -a $f -w 120
 		done
 		echo "----------------------------------------"
-		echo "----------------------------------------"
 	else
 		echo "----------------------------------------"
-		echo "Starting syslog"
-		sudo /usr/sbin/rsyslogd
 		echo "Starting node $NODE_NAME"
 		mqsistart $NODE_NAME
-		echo "----------------------------------------"
 		echo "----------------------------------------"
 	fi
 }

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+IMG_ID=$(docker images | grep iib | grep -F -e'latest' | perl -n -al -e'print $F[2];')
+
+docker run \
+	--rm \
+	--env LICENSE \
+	"$IMG_ID"
