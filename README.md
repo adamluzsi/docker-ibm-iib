@@ -1,6 +1,4 @@
-# docker IBM images
-
-## IBM Integration Bus
+# IBM Integration Bus
 
 in the iib subfolder, you find the Dockerfile that allows you to install any version of IIB.
 All you have to do is pass the version number as a build arg.
