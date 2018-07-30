@@ -10,7 +10,7 @@ IMAGE_NAME="ibm/iib"
 IMAGE_VERSION="$IIB_VERSION"
 
 if isDockerHasImage "$IMAGE_NAME"; then
-	return 0
+	exit 0
 fi
 
 docker build -t "$IMAGE_NAME" --build-arg PRODUCT_VERSION="$IMAGE_VERSION" "$PWD"

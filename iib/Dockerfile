@@ -6,7 +6,7 @@ LABEL "ProductName"="IBM Integration Bus" "ProductVersion"=${PRODUCT_VERSION}
 
 # install system level dependencies
 RUN  apt-get update &&\
-    apt-get install -y bash rsyslog &&\
+    apt-get install -y bash rsyslog wget &&\
     apt-get clean
 
 #COPY src/${PRODUCT_VERSION}-IIB-LINUX64-DEVELOPER.tar.gz /tmp/iib.tar.gz
@@ -39,6 +39,7 @@ COPY setup_xauth.sh /usr/local/bin/
 COPY iib_env.sh /etc/profile.d/
 RUN chmod +rx /usr/local/bin/*.sh
 
+ENV BASH_ENV="/etc/profile.d/iib_env.sh"
 ENV PRODUCT_VERSION=${PRODUCT_VERSION}
 ENV MQSI_MQTT_LOCAL_HOSTNAME=127.0.0.1
 
