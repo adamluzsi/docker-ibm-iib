@@ -13,5 +13,5 @@ if isDockerHasImage "$IMAGE_NAME"; then
 	exit 0
 fi
 
-docker build -t "$IMAGE_NAME" --build-arg PRODUCT_VERSION="$IMAGE_VERSION" "$PWD"
+docker build -t "$IMAGE_NAME" --build-arg VERSION="$IMAGE_VERSION" "$PWD"
 docker tag "$IMAGE_NAME" "$IMAGE_NAME:$IMAGE_VERSION"

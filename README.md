@@ -15,3 +15,7 @@ source .envrc
 ./bin/build
 ```
 
+## Caveat
+
+By using this Dockerbuild you accept the terms of the IBM Integration Bus for Developers license.
+i hold no responsibility for any consequences.
