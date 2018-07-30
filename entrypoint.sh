@@ -63,7 +63,6 @@ monitor() {
 	done
 }
 
-iib-license-check.sh
 start
 trap stop SIGTERM SIGINT
 monitor
