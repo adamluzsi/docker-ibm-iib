@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+docker images -q -a ibm/iib | tail -n +2 | sort | uniq | while read -r IMAGE_ID; do
+	docker ps -a | grep -e "$IMAGE_ID" | awk '{print($1)}' | while read CNT_ID; do 
+		docker rm $CNT_ID
+	done
+
+	docker rmi -f "$IMAGE_ID"
+done
