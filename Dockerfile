@@ -6,8 +6,12 @@ RUN test -n "$VERSION"
 LABEL "ProductName"="IBM Integration Bus" "ProductVersion"=${VERSION}
 
 # install system level dependencies
+# bash to ensure bash scripts are running
+# rsyslog required by IIB
+# wget to fetch source in a single RUN command with cleanups
+# libgtk2.0-dev is the IIB toolkit runtime dependency 
 RUN  apt-get update &&\
-    apt-get install -y bash rsyslog wget &&\
+    apt-get install -y bash rsyslog wget libgtk2.0-dev libgtk2.0-0 libxtst6 gtk2-engines-pixbuf gtk2-engines-murrine &&\
     apt-get clean
 
 # install IBM IIB

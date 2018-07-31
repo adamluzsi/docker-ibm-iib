@@ -10,6 +10,7 @@ set -e
 
 NODE_NAME=${NODENAME-IIBV10NODE}
 SERVER_NAME=${SERVERNAME-default}
+IIB_BIN_PATH="/opt/ibm/iib/iib"
 
 stop() {
 	echo "----------------------------------------"
@@ -17,9 +18,9 @@ stop() {
 	mqsistop $NODE_NAME
 }
 
-start() {
+startIIB() {
 	echo "----------------------------------------"
-	/opt/ibm/iib/iib version
+	$IIB_BIN_PATH version
 	echo "----------------------------------------"
 
 	NODE_EXISTS=$(
@@ -56,13 +57,14 @@ start() {
 monitor() {
 	echo "----------------------------------------"
 	echo "Running - stop container to exit"
-	# Loop forever by default - container must be stopped manually.
-	# Here is where you can add in conditions controlling when your container will exit - e.g. check for existence of specific processes stopping or errors beiing reported
-	while true; do
-		sleep 1
-	done
+	while true; do sleep 1; done
 }
 
-start
+if [[ -z "$@" ]]; then
+	startIIB
+else
+	$IIB_BIN_PATH $@
+fi
+
 trap stop SIGTERM SIGINT
 monitor
