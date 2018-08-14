@@ -30,9 +30,8 @@ docker run --env DISPLAY --volume $HOME/.Xauthority:/home/iibuser/.Xauthority ib
 ```sh
 #!/usr/bin/env bash
 
-export localXauthPath="$XAUTHORITY"
-if [[ -z "$localXauthPath" ]]; then
-	export localXauthPath="$HOME/.Xauthority"
+if [[ -z "$XAUTHORITY" ]]; then
+	export XAUTHORITY="$HOME/.Xauthority"
 fi
 
 ```
@@ -51,7 +50,7 @@ services:
     environment:
       - DISPLAY
     volumes:
-      - "${localXauthPath}:/home/iibuser/.Xauthority:ro"
+      - "${XAUTHORITY}:/home/iibuser/.Xauthority:ro"
     ports:
       - 4414:4414
       - 7800:7800
