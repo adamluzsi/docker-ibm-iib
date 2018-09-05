@@ -63,6 +63,22 @@ monitor() {
 	while true; do sleep 1; done
 }
 
+function link-workspace() {
+
+	local IIB_PROJECT_WORKING_DIRECTORY_PATH="${HOME}/IBM/IIBT10"
+
+	mkdir -p "${IIB_PROJECT_WORKING_DIRECTORY_PATH}"
+
+	if [[ -z "${WORKSPACE_PATH}" ]]; then
+		WORKSPACE_PATH="${HOME}/workspace"
+	fi
+
+	ln -s "${WORKSPACE_PATH}" "${IIB_PROJECT_WORKING_DIRECTORY_PATH}"
+
+}
+
+link-workspace
+
 if [[ -z "$@" ]]; then
 	startIIB
 else

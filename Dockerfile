@@ -28,8 +28,7 @@ RUN /opt/ibm/iib/iib make registry global accept license silently
 
 # Create user to run as
 RUN useradd --create-home --home-dir /home/iibuser --groups mqbrkrs iibuser &&\
-    echo "source \$HOME/.bashrc" >> /home/iibuser/.bash_profile &&\
-    mkdir -p /home/iibuser/IBM/IIBT10/
+    echo "source \$HOME/.bashrc" >> /home/iibuser/.bash_profile
 
 COPY bashrc /home/iibuser/.bashrc
 ENV BASH_ENV="/home/iibuser/.bashrc"
