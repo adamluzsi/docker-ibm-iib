@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # © Copyright IBM Corporation 2015.
 #
 # All rights reserved. This program and the accompanying materials
@@ -73,7 +73,11 @@ function link-workspace() {
 		WORKSPACE_PATH="${HOME}/workspace"
 	fi
 
-	ln -s "${WORKSPACE_PATH}" "${IIB_PROJECT_WORKING_DIRECTORY_PATH}"
+	if [[ -d "${IIB_PROJECT_WORKING_DIRECTORY_PATH}/workspace" ]]; then
+		rm -rf "${IIB_PROJECT_WORKING_DIRECTORY_PATH}/workspace"
+	fi
+
+	ln -s "${WORKSPACE_PATH}" "${IIB_PROJECT_WORKING_DIRECTORY_PATH}/workspace"
 
 }
 

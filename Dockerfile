@@ -37,8 +37,8 @@ ENV BASH_ENV="/home/iibuser/.bashrc"
 RUN localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 || :
 
 # Copy in script files
-COPY entrypoint.sh /usr/local/bin/
-RUN chmod +rx /usr/local/bin/*.sh
+COPY entrypoint /usr/local/bin/
+RUN chmod +rx /usr/local/bin/entrypoint
 
 ENV VERSION=${VERSION}
 ENV MQSI_MQTT_LOCAL_HOSTNAME=127.0.0.1
@@ -48,4 +48,4 @@ EXPOSE 22 4414 7800 8010
 
 USER iibuser
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["entrypoint"]

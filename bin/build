@@ -2,16 +2,8 @@
 
 test -z "$IIB_VERSION" && exit 1
 
-isDockerHasImage() {
-	test "$(docker images -q "$1" 2>/dev/null)" != ""
-}
-
 IMAGE_NAME="ibm/iib"
 IMAGE_VERSION="$IIB_VERSION"
-
-if isDockerHasImage "$IMAGE_NAME"; then
-	exit 0
-fi
 
 docker build -t "$IMAGE_NAME" --build-arg VERSION="$IMAGE_VERSION" "$PWD"
 docker tag "$IMAGE_NAME" "$IMAGE_NAME:$IMAGE_VERSION"
