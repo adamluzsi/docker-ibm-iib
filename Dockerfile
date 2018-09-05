@@ -30,7 +30,9 @@ RUN /opt/ibm/iib/iib make registry global accept license silently
 RUN useradd --create-home --home-dir /home/iibuser --groups mqbrkrs iibuser &&\
     echo "source \$HOME/.bashrc" >> /home/iibuser/.bash_profile &&\
     mkdir /home/iibuser/IBM &&\
-    chown iibuser:iibuser /home/iibuser/IBM
+    chown iibuser:iibuser -R /home/iibuser/IBM
+
+VOLUME ["/home/iibuser/IBM"]
 
 COPY bashrc /home/iibuser/.bashrc
 ENV BASH_ENV="/home/iibuser/.bashrc"
