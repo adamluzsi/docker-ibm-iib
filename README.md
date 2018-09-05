@@ -41,7 +41,7 @@ fi
 ```yaml
 ---
 services:
-  iib:
+  service-on-iib:
     build:
       context: https://github.com/adamluzsi/docker-ibm-iib.git
       args:
@@ -55,6 +55,13 @@ services:
       - 4414:4414
       - 7800:7800
 
+```
+
+## enable logging
+
+As root user, start the rsyslogd
+```sh
+/usr/sbin/rsyslogd
 ```
 
 ## Caveat
