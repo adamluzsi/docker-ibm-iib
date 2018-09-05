@@ -19,6 +19,7 @@ stop() {
 }
 
 startIIB() {
+
 	echo "----------------------------------------"
 	$IIB_BIN_PATH version
 	echo "----------------------------------------"
@@ -29,6 +30,7 @@ startIIB() {
 	)
 
 	if [ ${NODE_EXISTS} -ne 0 ]; then
+
 		echo "----------------------------------------"
 		echo "Node $NODE_NAME does not exist..."
 		echo "Creating node $NODE_NAME"
@@ -52,6 +54,7 @@ startIIB() {
 		mqsistart $NODE_NAME
 		echo "----------------------------------------"
 	fi
+
 }
 
 monitor() {
