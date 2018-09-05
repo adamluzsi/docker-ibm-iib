@@ -8,10 +8,6 @@
 
 set -e
 
-NODE_NAME=${NODENAME-IIBV10NODE}
-SERVER_NAME=${SERVERNAME-default}
-IIB_BIN_PATH="/opt/ibm/iib/iib"
-
 stop() {
 	echo "----------------------------------------"
 	echo "Stopping node $NODE_NAME..."
@@ -24,7 +20,7 @@ startIIB() {
 	$IIB_BIN_PATH version
 	echo "----------------------------------------"
 
-	NODE_EXISTS=$(
+	local NODE_EXISTS=$(
 		mqsilist | grep $NODE_NAME >/dev/null
 		echo $?
 	)

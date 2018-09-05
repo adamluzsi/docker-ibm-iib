@@ -28,13 +28,12 @@ RUN /opt/ibm/iib/iib make registry global accept license silently
 
 # Create user to run as
 RUN useradd --create-home --home-dir /home/iibuser --groups mqbrkrs iibuser &&\
-    echo "source \$HOME/.bashrc" >> /home/iibuser/.bash_profile
+    echo "source \$HOME/.bashrc" >> /home/iibuser/.bash_profile &&\
+    mkdir /home/iibuser/IBM &&\
+    chown iibuser:iibuser /home/iibuser/IBM
 
 COPY bashrc /home/iibuser/.bashrc
 ENV BASH_ENV="/home/iibuser/.bashrc"
-
-# Set locale (fix the locale warnings)
-RUN localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 || :
 
 # Copy in script files
 COPY entrypoint /usr/local/bin/
@@ -42,6 +41,9 @@ RUN chmod +rx /usr/local/bin/entrypoint
 
 ENV VERSION=${VERSION}
 ENV MQSI_MQTT_LOCAL_HOSTNAME=127.0.0.1
+ENV NODE_NAME="IIBV10NODE"
+ENV SERVER_NAME="default"
+ENV IIB_BIN_PATH="/opt/ibm/iib/iib"
 
 # Expose default admin port and http port
 EXPOSE 22 4414 7800 8010
