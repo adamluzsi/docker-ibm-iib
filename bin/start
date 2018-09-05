@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-IMG_ID=$(docker images | grep iib | grep -F -e'latest' | perl -n -al -e'print $F[2];')
+IMG_ID=$(docker images | grep iib | grep -F -e'latest' | perl -n -al -e'print $F[2];' | head -n 1)
 
 docker run \
 	--rm \
