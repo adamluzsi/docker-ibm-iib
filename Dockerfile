@@ -11,10 +11,8 @@ LABEL "ProductName"="IBM Integration Bus" "ProductVersion"=${VERSION}
 # wget to fetch source in a single RUN command with cleanups
 # libgtk2.0-dev is the IIB toolkit runtime dependency
 RUN  apt-get update &&\
-    apt-get install -y bash rsyslog wget libgtk2.0-dev libgtk2.0-0 libxtst6 gtk2-engines-pixbuf gtk2-engines-murrine &&\
-    apt-get clean &&\
-    touch /var/log/syslog &&\
-    chown syslog:adm /var/log/syslog
+    apt-get install -y bash rsyslog sudo wget libgtk2.0-dev libgtk2.0-0 libxtst6 gtk2-engines-pixbuf gtk2-engines-murrine &&\
+    apt-get clean
 
 # install IBM IIB
 RUN mkdir -p /opt/ibm &&\
@@ -26,11 +24,18 @@ RUN mkdir -p /opt/ibm &&\
 # accept license
 RUN /opt/ibm/iib/iib make registry global accept license silently
 
+# configure syslog
+RUN touch /var/log/syslog &&\
+    chown syslog:adm /var/log/syslog &&\
+    chmod a=rwx /var/log/syslog
+
 # Create user to run as
+# we allow the enrtypoint script to run rsyslogd on startup as root
 RUN useradd --create-home --home-dir /home/iibuser --groups mqbrkrs iibuser &&\
     echo "source \$HOME/.bashrc" >> /home/iibuser/.bash_profile &&\
     mkdir /home/iibuser/IBM &&\
-    chown iibuser:iibuser -R /home/iibuser/IBM
+    chown iibuser:iibuser -R /home/iibuser/IBM &&\
+    printf "iibuser\tALL=(root)\tNOPASSWD:/usr/sbin/rsyslogd\n"  >>/etc/sudoers
 
 VOLUME ["/home/iibuser/IBM"]
 

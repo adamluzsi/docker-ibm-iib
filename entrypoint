@@ -28,6 +28,9 @@ startIIB() {
 	if [ ${NODE_EXISTS} -ne 0 ]; then
 
 		echo "----------------------------------------"
+		echo "Start rsyslogd"
+		sudo /usr/sbin/rsyslogd
+		echo "----------------------------------------"
 		echo "Node $NODE_NAME does not exist..."
 		echo "Creating node $NODE_NAME"
 		mqsicreatebroker $NODE_NAME
